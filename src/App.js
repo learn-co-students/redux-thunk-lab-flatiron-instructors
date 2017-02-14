@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from './actions/catActions.js'
 
-class App extends Component {
+export class App extends Component {
   componentDidMount() {
     if (this.props.catPics.length === 0) {
       console.log('in component did mount')
@@ -37,4 +37,4 @@ function mapDispatchToProps(dispatch) {
   return {actions: bindActionCreators(actions, dispatch)}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export const WrapperApp = connect(mapStateToProps, mapDispatchToProps)(App)
