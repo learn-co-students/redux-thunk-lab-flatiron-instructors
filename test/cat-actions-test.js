@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store'
 import ReduxPromise from 'redux-promise'
 import * as actions from '../src/actions/catActions'
 import nock from 'nock'
-
+// change to redux thunk
 const middlewares = [ ReduxPromise ]
 const mockStore = configureMockStore(middlewares)
 
@@ -20,6 +20,7 @@ describe('async actions', () => {
       { type: "FETCH_CATS", payload: [{url: "www.example.com/cat1"}, {url: 'www.example.com/cat2'}] }
     ]
     const store = mockStore({})
+    // change the actions 
 
     return store.dispatch(actions.fetchCats())
       .then(() => { // return of async actions
