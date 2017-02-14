@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from './actions/catActions.js'
 
-class App extends Component {   
+class App extends Component {
   componentDidMount() {
     if (this.props.catPics.length === 0) {
       console.log('in component did mount')
@@ -30,7 +30,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   console.log('in map state to props')
-  return {catPics: state.cats}
+  return {catPics: state.cats.pictures}
 }
 
 function mapDispatchToProps(dispatch) {
@@ -38,4 +38,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
-
