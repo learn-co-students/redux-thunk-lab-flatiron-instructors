@@ -4,7 +4,7 @@ describe('cats reducer', () => {
   it('should return the initial state', () => {
     expect(
       catsReducer(undefined, {})
-    ).toEqual([])
+    ).toEqual({loading: false, pictures: []})
   })
 
   it('should handle the FETCH_CATS action', () => {
@@ -14,23 +14,6 @@ describe('cats reducer', () => {
         type: 'FETCH_CATS',
         payload:  catPics
       })
-    ).toEqual(catPics)
+    ).toEqual({loading: false, pictures: catPics})
   })
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

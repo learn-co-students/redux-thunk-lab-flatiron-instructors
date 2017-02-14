@@ -2,10 +2,12 @@ import React from 'react'
 import { shallow, mount} from 'enzyme'
 import expect, { createSpy, spyOn, isSpy } from 'expect'
 import ReactTestUtils from 'react-addons-test-utils'
-import ReduxPromise from 'redux-promise'
-import App from '../src/App'
+import thunk from 'redux-thunk'
+import { WrapperApp, App } from '../src/App'
 import CatList from '../src/CatList'
 import sinon from 'sinon'
+import {createStore, applyMiddleware, compose } from 'redux'
+import * as actions from '../src/actions/catActions'
 import configureMockStore from 'redux-mock-store'
 
 
@@ -19,23 +21,21 @@ function setup() {
     catPics: images
   }
   const mockStore = configureStore([]);
-  const store = mockStore();
-  const wrapper = shallow(<App store={store}/>)
+  const initialState = {cats: {loading: false, cats: []}}
+  const store = mockStore(initialState);
+  const wrapper = shallow(<WrapperApp store={store}/>)
   return {
     wrapper
   }
 }
 
 function setUpMount() {
-  const middlewares = [ ReduxPromise ]
-  const mockStore = configureMockStore(rootReducer, middlewares)({cats: []})
+  // const middlewares = [ thunk ]
+  // // const mockStore = configureMockStore(rootReducer, compose(applyMiddleware(middlewares)))({cats: {loading: false, pictures: []}})
 
-  console.log('before mount in test')
-  const component = mount(<Provider store={mockStore}><App /></Provider>)
-  return {
-    mockStore,
-    component
-  }
+  console.log('before mount in test here')
+  const component = mount(<App catPics={[]}/>)
+  return {component}
 }
 
 describe('<App/>', function () {
@@ -52,10 +52,9 @@ describe('<App/>', function () {
   })
 
   it('should use the componentDidMount lifecycle method to fetchCats', function() {
-    sinon.spy(App.prototype, 'componentDidMount');
-    const {component, mockStore} = setUpMount()
+    // sinon.spy(App.prototype, 'componentDidMount');
+    sinon.stub(App.prototype, 'componentDidMount');
+    const {component } = setUpMount()
     expect(App.prototype.componentDidMount.calledOnce).toEqual(true);
   })
-
- 
 });
